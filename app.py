@@ -14,15 +14,26 @@ REGION_MAP = {
     "🇪🇺 Europe (Zalando, Yoox, ASOS Europe)": "Zalando, Yoox, ASOS Europe, About You"
 }
 
+from duckduckgo_search import DDGS
+
 def search_regional_fashion(query):
-    """Simple search query to bypass data-center blocking."""
     try:
-        clean_query = f"{query} fashion buy online price"
+        clean_query = f"{query} buy online"
+
         with DDGS() as ddgs:
-            results = [r for r in ddgs.text(clean_query, max_results=15)]
+            results = list(
+                ddgs.text(
+                    clean_query,
+                    region="in-en",
+                    safesearch="off",
+                    max_results=10
+                )
+            )
+
         return results
+
     except Exception as e:
-        print(f"Search failed: {e}")
+        st.error(f"Search Error: {e}")
         return []
 
 def get_product_image_url(product_name):
