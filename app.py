@@ -1,3 +1,14 @@
+import requests
+
+url = "https://duckduckgo.com/html/"
+# This makes your app pretend to be a real Windows computer using Chrome:
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
+
+# Run the search with the headers attached
+response = requests.get(url, headers=headers)
+print(response.text)
 import streamlit as st
 import google.generativeai as genai
 from duckduckgo_search import DDGS
